@@ -1,7 +1,5 @@
 // Project 4 - Color Mixing Lamp
 
-@TODO TEST
-
 var five = require( 'johnny-five' ),
     board = new five.Board();
  
@@ -19,18 +17,24 @@ board.on( 'ready', function(){
         greenSensor = new five.Sensor( 'A1' ),
         blueSensor = new five.Sensor( 'A2');
         
+    
+    redSensor.on( 'data', logAndUpdate( 'red' ) );
+    greenSensor.on( 'data', logAndUpdate( 'green' ) );
+    blueSensor.on( 'data', logAndUpdate( 'blue' ) );
+   
 
-    redSensor.on( 'data', logAndUpdate.bind( this, 'red' ) );
-    greenSensor.on( 'data', logAndUpdate.bind( this, 'green' ) );
-    blueSensor.on( 'data', logAndUpdate.bind( this, 'blue' ) );
-
+    // function to return callback functions    
     function logAndUpdate( col ) {
-        // log out the values
-        console.log( 'raw-' + col + ' value: ' + this.value );  
-        console.log( 'mapped-' + col + ' value: ' + this.value/4 );
+       
+        return function() {
+            // log out the values
+            console.log( 'raw-' + col + ' value: ' + this.value );  
+            console.log( 'mapped-' + col + ' value: ' + this.value/4 );
 
-        // update the brightness
-        LEDs[ col + 'Led' ].brightness( this.value/4 );
+            // update the brightness
+            LEDs[ col + 'Led' ].brightness( this.value/4 );
+        }
+        
         
     }
 
