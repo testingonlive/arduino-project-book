@@ -1,9 +1,8 @@
 // project 6 - Light Theremin
 
-// not overly keen on this code at the moment...
-
 var five = require( 'johnny-five' ),
     board = new five.Board();
+
 
 board.on( 'ready', function(){
     
@@ -18,36 +17,34 @@ board.on( 'ready', function(){
         val,
         time = new Date();
 
-    
-    ldr.on( 'data', function(){
+    // calibrate function 
+    function calibrate(){          
+        if ( this.value > high ) high = this.value;
+        if ( this.value < low ) low = this.value;
+    }
+
+    function tone(){
+        // map the values
+        val = five.Fn.map( this.value, low, high, 50, 4000 );
+
+        // make some noise
+        piezo.tone( val, 20 );
+    }
+         
+    // calibrating
+    led.on();
+    ldr.on( 'data', calibrate )
+
+    // turn off calibration then start playing tone
+    setTimeout( function(){ 
+        console.log( low + ' - ' + high );      
+
+        led.off();
         
-        if ( new Date() - time < 5e3 ){
-            // calibratting
-            led.on()
-            if ( this.value > high ) high = this.value;
-            if ( this.value < low ) low = this.value;
-        } else {
-            // not calibratting
-            led.off()
-            
-            // map the values
-            val = five.Fn.map( this.value, low, high, 50, 4000 );
+        ldr.removeListener( 'data', calibrate )
+           .on( 'data', tone );
 
-            // make some noise
-            piezo.tone( val, 20 );
-
-        }  
-
-
-               
-
-
-    })
-
-
-    
-    
-
+    }, 5e3 );
 
 
 });
