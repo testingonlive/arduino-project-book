@@ -9,3 +9,5 @@ The Projects:
 - project3.js - Love-o-Meter
 - project4.js - Color Mixing Lamp
 - project5.js - Mood Cue
+- project6.js - Light Theremin
+- project7.js - Keyboard Instrument
