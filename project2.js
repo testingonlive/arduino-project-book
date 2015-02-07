@@ -4,9 +4,9 @@ var five = require( 'johnny-five' ),
 	board = new five.Board();
 
 board.on( 'ready', function(){
-    var led5 = new five.Led( 5 ),
+    var led5 = new five.Led( { pin: 5, type: 'OUTPUT' } ),
         led4 = new five.Led( 4 ),
-        led3 = new five.Led( 3 ).on(),
+        led3 = new five.Led( { pin: 3, type: 'OUTPUT' } ).on(),
         button = new five.Button( 2 ),
         timeOut;
 
