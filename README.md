@@ -11,3 +11,5 @@ The Projects:
 - project5.js - Mood Cue
 - project6.js - Light Theremin
 - project7.js - Keyboard Instrument
+- project8.js - Digital Hourglass
+- projcet9.js - Motorized Pinwheel
