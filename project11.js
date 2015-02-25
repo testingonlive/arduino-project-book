@@ -1,5 +1,4 @@
 // Project 11 - Crystal Ball
-// @TODO reset after a fixed time
 
 var five = require( 'johnny-five' ),
     board = new five.Board();
@@ -41,17 +40,23 @@ board.on( 'ready', function(){
         'Certainly',
         'Outlook good',
         'Unsure',
-        'Ask again',
+        'Ask again',    
         'Doubtful',
         'No'
     ];
     
-
-    // print a welcome message
-    lcd
-        .print( 'Ask the' )
-        .cursor( 1, 0 )
-        .print( 'Cystal Ball!' );  
+    
+    // function to print the welcome message
+    var welcomeMsg = function(){
+        lcd
+            .clear()
+            .print( 'Ask the' )
+            .cursor( 1, 0 )
+            .print( 'Cystal Ball!' ); 
+    };
+         
+    // display the welcome message
+    welcomeMsg();
 
     tilt.on( 'change', function _change(){
         
@@ -70,6 +75,9 @@ board.on( 'ready', function(){
             .print( 'The ball says: ' )
             .cursor( 1, 0 )
             .print( replies[ reply ] );
+
+        // return to the the welcome message after a bit
+        setTimeout( welcomeMsg, 3e5);
 
     });
     

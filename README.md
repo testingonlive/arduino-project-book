@@ -13,3 +13,6 @@ The Projects:
 - project7.js - Keyboard Instrument
 - project8.js - Digital Hourglass
 - projcet9.js - Motorized Pinwheel
+- projcet10.js - Zoetrope
+- projcet11.js - Crystal Ball
+- projcet12.js - Knock Lock
